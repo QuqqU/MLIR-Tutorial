@@ -12,9 +12,9 @@
 //===----------------------------------------------------------------------===//
 
 #include "toy/MLIRGen.h"
-#include "toy/AST.h"
-#include "toy/ToyDialect.h"
-#include "toy/ToyOps.h"
+#include "toy/parser/AST.h"
+#include "toy/dialect/ToyDialect.h"
+#include "toy/dialect/ToyOps.h"
 
 #include "mlir/IR/Attributes.h"
 #include "mlir/IR/Builders.h"

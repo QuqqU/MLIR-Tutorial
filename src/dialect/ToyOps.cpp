@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "toy/ToyOps.h"
-#include "toy/ToyDialect.h"
+#include "toy/dialect/ToyOps.h"
+#include "toy/dialect/ToyDialect.h"
 
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/BuiltinTypes.h"
@@ -20,7 +20,7 @@ using namespace mlir::toy;
 //===----------------------------------------------------------------------===//
 // TableGen'd op method definitions
 #define GET_OP_CLASSES
-#include "toy/ToyOps.cpp.inc"
+#include "toy/dialect/ToyOps.cpp.inc"
 //===----------------------------------------------------------------------===//
 
 //===----------------------------------------------------------------------===//

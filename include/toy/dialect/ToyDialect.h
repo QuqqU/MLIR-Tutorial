@@ -18,6 +18,6 @@
 
 /// Include the auto-generated header file containing the declaration of the toy
 /// dialect.
-#include "toy/ToyDialect.h.inc"
+#include "toy/dialect/ToyDialect.h.inc"
 
 #endif // MLIR_TUTORIAL_TOY_DIALECT_H_

@@ -9,7 +9,7 @@
 #ifndef TOY_OPS
 #define TOY_OPS
 
-include "ToyDialect.td"
+include "toy/dialect/ToyDialect.td"
 include "mlir/IR/FunctionInterfaces.td"
 include "mlir/IR/SymbolInterfaces.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
@@ -219,11 +219,12 @@ def PrintOp : Toy_Op<"print"> {
   let assemblyFormat = "$input attr-dict `:` type($input)";
 }
 
+
 //===----------------------------------------------------------------------===//
 // ReshapeOp
 //===----------------------------------------------------------------------===//
 
-def ReshapeOp : Toy_Op<"reshape"> {
+def ReshapeOp : Toy_Op<"reshape", [Pure]> {
   let summary = "tensor reshape operation";
   let description = [{
     Reshape operation is transforming its input tensor into a new tensor with
@@ -242,7 +243,11 @@ def ReshapeOp : Toy_Op<"reshape"> {
   let assemblyFormat = [{
     `(` $input `:` type($input) `)` attr-dict `to` type(results)
   }];
+
+  // Enable registering canonicalization patterns with this operation.
+  let hasCanonicalizer = 1;
 }
+
 
 //===----------------------------------------------------------------------===//
 // ReturnOp
@@ -290,7 +295,7 @@ def ReturnOp : Toy_Op<"return", [Pure, HasParent<"FuncOp">,
 // TransposeOp
 //===----------------------------------------------------------------------===//
 
-def TransposeOp : Toy_Op<"transpose"> {
+def TransposeOp : Toy_Op<"transpose", [Pure]> {
   let summary = "transpose operation";
 
   let arguments = (ins F64Tensor:$input);
@@ -300,12 +305,15 @@ def TransposeOp : Toy_Op<"transpose"> {
     `(` $input `:` type($input) `)` attr-dict `to` type(results)
   }];
 
+  // Enable registering canonicalization patterns with this operation.
+  let hasCanonicalizer = 1;
+
   // Allow building a TransposeOp with from the input operand.
   let builders = [
     OpBuilder<(ins "Value":$input)>
   ];
 
-  // Invoke a static verify method to verify this transpose operation.
+  // Indicate that additional verification for this operation is necessary.
   let hasVerifier = 1;
 }
 
