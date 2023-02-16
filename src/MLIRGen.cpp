@@ -12,9 +12,9 @@
 //===----------------------------------------------------------------------===//
 
 #include "toy/MLIRGen.h"
-#include "toy/parser/AST.h"
 #include "toy/dialect/ToyDialect.h"
 #include "toy/dialect/ToyOps.h"
+#include "toy/parser/AST.h"
 
 #include "mlir/IR/Attributes.h"
 #include "mlir/IR/Builders.h"
@@ -164,6 +164,10 @@ private:
       function.setType(builder.getFunctionType(
           function.getFunctionType().getInputs(), getType(VarType{})));
     }
+
+    // If this function isn't main, then set the visibility to private.
+    if (funcAST.getProto()->getName() != "main")
+      function.setPrivate();
 
     return function;
   }

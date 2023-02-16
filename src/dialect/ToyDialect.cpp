@@ -13,11 +13,10 @@
 
 #include "toy/dialect/ToyDialect.h"
 #include "toy/dialect/ToyOps.h"
-
+#include "toy/dialect/interface/ToyInlinerInterface.h"
 
 using namespace mlir;
 using namespace mlir::toy;
-
 
 //===----------------------------------------------------------------------===//
 // ToyDialect
@@ -32,4 +31,5 @@ void ToyDialect::initialize() {
 #define GET_OP_LIST
 #include "toy/dialect/ToyOps.cpp.inc"
       >();
+  addInterfaces<ToyInlinerInterface>();
 }

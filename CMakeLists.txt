@@ -15,12 +15,14 @@ add_toy_chapter(toyc-ch1
     src/parser/AST.cpp
     src/dialect/ToyDialect.cpp
     src/dialect/ToyOps.cpp
+    src/dialect/interface/ToyInlinerInterface.cpp
     src/MLIRGen.cpp
     src/pass/combine/ToyCombine.cpp
 
     DEPENDS
+
     ToyCh1OpsIncGen
-    # ToyCh1CombineIncGen
+    ToyCh1CombineIncGen
 )
 
 include_directories(include/)
