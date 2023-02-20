@@ -1,4 +1,4 @@
-#include "toy/dialect/interface/ToyInlinerInterface.h"
+#include "toy/interface/inline/InlinerInterface.h"
 #include "toy/dialect/ToyDialect.h"
 #include "toy/dialect/ToyOps.h"
 
@@ -11,31 +11,24 @@
 namespace mlir {
 namespace toy {
 
-//===----------------------------------------------------------------------===//
-// ToyInlinerInterface
-//===----------------------------------------------------------------------===//
-
-/// This class defines the interface for handling inlining with Toy
-/// operations.
-
 //===--------------------------------------------------------------------===//
 // Analysis Hooks
 //===--------------------------------------------------------------------===//
 
 /// All call operations within toy can be inlined.
-bool ToyInlinerInterface::isLegalToInline(Operation *call, Operation *callable,
+bool InlinerInterface::isLegalToInline(Operation *call, Operation *callable,
                                           bool wouldBeCloned) const {
   return true;
 }
 
 /// All operations within toy can be inlined.
-bool ToyInlinerInterface::isLegalToInline(Operation *, Region *, bool,
+bool InlinerInterface::isLegalToInline(Operation *, Region *, bool,
                                           IRMapping &) const {
   return true;
 }
 
 // All functions within toy can be inlined.
-bool ToyInlinerInterface::isLegalToInline(Region *, Region *, bool,
+bool InlinerInterface::isLegalToInline(Region *, Region *, bool,
                                           IRMapping &) const {
   return true;
 }
@@ -46,7 +39,7 @@ bool ToyInlinerInterface::isLegalToInline(Region *, Region *, bool,
 
 /// Handle the given inlined terminator(toy.return) by replacing it with a new
 /// operation as necessary.
-void ToyInlinerInterface::handleTerminator(Operation *op,
+void InlinerInterface::handleTerminator(Operation *op,
                                            ArrayRef<Value> valuesToRepl) const {
   // Only "toy.return" needs to be handled here.
   auto returnOp = cast<ReturnOp>(op);
@@ -64,7 +57,7 @@ void ToyInlinerInterface::handleTerminator(Operation *op,
 /// should be returned.
 
 Operation *
-ToyInlinerInterface::materializeCallConversion(OpBuilder &builder, Value input,
+InlinerInterface::materializeCallConversion(OpBuilder &builder, Value input,
                                                Type resultType,
                                                Location conversionLoc) const {
   return builder.create<CastOp>(conversionLoc, resultType, input);

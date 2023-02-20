@@ -11,6 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "toy/MLIRGen.h"
+#include "toy/Passes.h"
 #include "toy/dialect/ToyDialect.h"
 #include "toy/dialect/ToyOps.h"
 #include "toy/parser/Parser.h"
@@ -124,10 +125,10 @@ int dumpMLIR() {
 
     // Now that there is only one function, we can infer the shapes of each of
     // the operations.
-    // mlir::OpPassManager &optPM = pm.nest<mlir::toy::FuncOp>();
-    // optPM.addPass(mlir::toy::createShapeInferencePass());
-    // optPM.addPass(mlir::createCanonicalizerPass());
-    // optPM.addPass(mlir::createCSEPass());
+    mlir::OpPassManager &optPM = pm.nest<mlir::toy::FuncOp>();
+    optPM.addPass(mlir::toy::createShapeInferencePass());
+    optPM.addPass(mlir::createCanonicalizerPass());
+    optPM.addPass(mlir::createCSEPass());
 
     if (mlir::failed(pm.run(*module)))
       return 4;

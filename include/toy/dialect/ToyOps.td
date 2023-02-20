@@ -10,6 +10,8 @@
 #define TOY_OPS
 
 include "toy/dialect/ToyDialect.td"
+include "toy/interface/inferShape/ShapeInferenceInterface.td"
+
 include "mlir/IR/FunctionInterfaces.td"
 include "mlir/IR/SymbolInterfaces.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
@@ -72,7 +74,7 @@ def ConstantOp : Toy_Op<"constant", [Pure]> {
 // AddOp
 //===----------------------------------------------------------------------===//
 
-def AddOp : Toy_Op<"add", [Pure]> {
+def AddOp : Toy_Op<"add", [Pure,DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
   let summary = "element-wise addition operation";
   let description = [{
     The "add" operation performs element-wise addition between two tensors.
@@ -186,7 +188,7 @@ def GenericCallOp : Toy_Op<"generic_call", [DeclareOpInterfaceMethods<CallOpInte
 // MulOp
 //===----------------------------------------------------------------------===//
 
-def MulOp : Toy_Op<"mul", [Pure]> {
+def MulOp : Toy_Op<"mul", [Pure,DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
   let summary = "element-wise multiplication operation";
   let description = [{
     The "mul" operation performs element-wise multiplication between two
@@ -298,7 +300,7 @@ def ReturnOp : Toy_Op<"return", [Pure, HasParent<"FuncOp">,
 // TransposeOp
 //===----------------------------------------------------------------------===//
 
-def TransposeOp : Toy_Op<"transpose", [Pure]> {
+def TransposeOp : Toy_Op<"transpose", [Pure,DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
   let summary = "transpose operation";
 
   let arguments = (ins F64Tensor:$input);
@@ -326,7 +328,7 @@ def TransposeOp : Toy_Op<"transpose", [Pure]> {
 
 def CastOp : Toy_Op<"cast", [
      DeclareOpInterfaceMethods<CastOpInterface>,
-    //  DeclareOpInterfaceMethods<ShapeInferenceOpInterface>,
+     DeclareOpInterfaceMethods<ShapeInferenceOpInterface>,
      Pure,
      SameOperandsAndResultShape
   ]> {

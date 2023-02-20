@@ -18,7 +18,7 @@ namespace toy {
 
 /// This class defines the interface for handling inlining with Toy
 /// operations.
-struct ToyInlinerInterface : public DialectInlinerInterface {
+struct InlinerInterface : public DialectInlinerInterface {
   using DialectInlinerInterface::DialectInlinerInterface;
 
   //===--------------------------------------------------------------------===//

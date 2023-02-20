@@ -5,9 +5,11 @@
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/FunctionInterfaces.h"
 #include "mlir/IR/SymbolTable.h"
+
 #include "mlir/Interfaces/CallInterfaces.h"
 #include "mlir/Interfaces/CastInterfaces.h"
 #include "mlir/Interfaces/SideEffectInterfaces.h"
+#include "toy/interface/inferShape/ShapeInferenceInterface.h"
 
 /// Include the auto-generated header file containing the declarations of the
 /// toy operations.

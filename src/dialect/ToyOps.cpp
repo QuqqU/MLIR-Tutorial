@@ -12,7 +12,7 @@
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/FunctionImplementation.h"
-#include "mlir/IR/OpImplementation.h"
+// #include "mlir/IR/OpImplementation.h"
 
 using namespace mlir;
 using namespace mlir::toy;
@@ -201,14 +201,14 @@ void FuncOp::print(mlir::OpAsmPrinter &p) {
       getArgAttrsAttrName(), getResAttrsAttrName());
 }
 
-/// Returns the region on the function operation that is callable.
-mlir::Region *FuncOp::getCallableRegion() { return &getBody(); }
+// /// Returns the region on the function operation that is callable.
+// mlir::Region *FuncOp::getCallableRegion() { return &getBody(); }
 
-/// Returns the results types that the callable region produces when
-/// executed.
-llvm::ArrayRef<mlir::Type> FuncOp::getCallableResults() {
-  return getFunctionType().getResults();
-}
+// /// Returns the results types that the callable region produces when
+// /// executed.
+// llvm::ArrayRef<mlir::Type> FuncOp::getCallableResults() {
+//   return getFunctionType().getResults();
+// }
 
 //===----------------------------------------------------------------------===//
 // GenericCallOp
@@ -223,15 +223,15 @@ void GenericCallOp::build(mlir::OpBuilder &builder, mlir::OperationState &state,
                      mlir::SymbolRefAttr::get(builder.getContext(), callee));
 }
 
-/// Return the callee of the generic call operation, this is required by the
-/// call interface.
-CallInterfaceCallable GenericCallOp::getCallableForCallee() {
-  return (*this)->getAttrOfType<SymbolRefAttr>("callee");
-}
+// /// Return the callee of the generic call operation, this is required by the
+// /// call interface.
+// CallInterfaceCallable GenericCallOp::getCallableForCallee() {
+//   return (*this)->getAttrOfType<SymbolRefAttr>("callee");
+// }
 
-/// Get the argument operands to the called function, this is required by the
-/// call interface.
-Operation::operand_range GenericCallOp::getArgOperands() { return getInputs(); }
+// /// Get the argument operands to the called function, this is required by the
+// /// call interface.
+// Operation::operand_range GenericCallOp::getArgOperands() { return getInputs(); }
 
 //===----------------------------------------------------------------------===//
 // MulOp
