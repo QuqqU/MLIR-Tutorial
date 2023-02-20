@@ -22,6 +22,7 @@ add_toy_chapter(toyc-ch1
     src/pass/InlinerPass/ToyInlinerImpl.cpp
     src/pass/ShapeInferencePass/ShapeInferenceOpImpl.cpp
     src/pass/ShapeInferencePass/ShapeInferencePass.cpp
+    src/pass/LowerToAffinePass/LowerToAffinePass.cpp
 
     src/MLIRGen.cpp
 
@@ -32,13 +33,19 @@ add_toy_chapter(toyc-ch1
     ToyCh1ShapeInferenceInterfaceIncGen
 )
 
-include_directories(include/)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include/)
+get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 target_link_libraries(toyc-ch1
     PRIVATE
+
+    ${dialect_libs}
     MLIRAnalysis
+    MLIRCallInterfaces
+    MLIRCastInterfaces
     MLIRIR
     MLIRParser
+    MLIRPass
     MLIRSideEffectInterfaces
+    MLIRSupport
     MLIRTransforms)
-
